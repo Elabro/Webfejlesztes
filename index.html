@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
+   <script src="javascripts/elso.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -37,7 +38,44 @@
           <span class="credits left">Project maintained by <a href="https://github.com/legios89">legios89</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
         </div>
+  <a href="index.html">1.változat</a>  <a href="index2.html">2.változat</a>   <a href="index3.html">3.változat</a>
+   <br/><br/>
+   <h2>1.változat ( JSHint-en átmegy)</h2>
 
+   <p>Kattints a képre Stewie kommentárjához! :)</p>       
+  <img src="images/stewie.jpg" id="kep">    
+  <ul id="output"></ul><br/><br/>
+<p>
+   var kep, outputContainer;  &nbsp&nbsp  <font color="green">// definiáljuk a változókat</font><br/>
+   var counter = 0;   &nbsp&nbsp        <font color="green">// 0 értékre állítom a számlálót</font><br/>
+   <br/>
+   <font color="green"> /*Itt aggyuk hozzá az felsoroláshoz az új sorokat*/</font><br/>
+   function createNewOutput(msg) { <br/>
+    "use strict";<br/>
+     var li = document.createElement('li');<br/>
+     li.innerHTML = msg;<br/>
+     outputContainer.appendChild(li); }<br/>
+  
+<br/>
+  <font color="green"> /*Kattintás esetén mit adjunk hozzá a felsorláshoz felváltva írjuk ki mondatokat*/</font><br/>
+function onClick() {<br/>
+  "use strict";<br/>
+  if(counter%2===0){<br/>
+    createNewOutput( ++counter + '. Damn you vile woman!');<br/>
+  }else{<br/>
+    createNewOutput( ++counter + '. I will kill you!');}<br/>
+}<br/>
+<br/>
+  <font color="green">/*Itt definiálom mire kell kattintani és hogy hova irjuk ki a szöveget*/</font><br/>
+function setUp() {<br/>
+  "use strict";<br/>
+  kep = document.getElementById('kep');<br/>
+  outputContainer = document.getElementById('output');<br/>
+  kep.addEventListener('click', onClick);}<br/>
+<br/>
+ <font color="green"> /*Az oldal betöltésekor meghívjuk a setUp-ot*/</font><br/>
+document.addEventListener('DOMContentLoaded', setUp);<br/>
+ </p>
 
 
     </div>
