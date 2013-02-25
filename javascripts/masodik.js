@@ -9,18 +9,11 @@ var myHandler = {
 		myHandler.outputContainer.appendChild(li);
 	},
 	onClick: function() {
-
-
-
-
-
 		if(myHandler.counter%2==0){
 			myHandler.createNewOutput( ++myHandler.counter + '. Damn you vile woman!');
 		}else{
 			myHandler.createNewOutput( ++myHandler.counter + '. I will kill you!');
 		}
-
-
 	},
 	setUp: function() {
 		myHandler.kep = document.getElementById('kep');
