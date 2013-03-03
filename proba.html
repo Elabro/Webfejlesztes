@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="hu">
+	<head>
+		<meta charset="utf-8">
+	<title>Proba</title>
+</head>
+<body>
+	<script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+  url: 'http://dummyapi.bpm-radio-playlist.appspot.com/api/tree/?sitekey=1234',
+  type: "GET",
+  success: console.log
+});
+$.get('http://dummyapi.bpm-radio-playlist.appspot.com/api/tree/?sitekey=1234', console.log);
+var defd = $.ajax({});
+  defd.then(function(data){
+    console.log(data);
+  });
+       
+</script>
+	asdadsasd
+</body>
+</html>
