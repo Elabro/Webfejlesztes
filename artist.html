@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="hu">
+
+	<head>
+		<meta charset="utf-8">
+	<title>Last.fm</title>
+	<link rel="stylesheet" href="css/qunit.css" type="text/css" media="screen" />
+</head>
+<body>
+	<h1 id="qunit-header">Last.fm</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+
+	<script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="libs/lodash.min.js"></script>
+	<script type="text/javascript" src="javascripts/lastfm.js"></script>
+	<script type="text/javascript">
+
+	function getParameterByName(name){
+ 		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  		var regexS = "[\\?&]" + name + "=([^&#]*)";
+  		var regex = new RegExp(regexS);
+  		var results = regex.exec(window.location.search);
+  		if(results == null)
+    		return "";
+  		else
+    		return decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
+	var container = document.getElementById('container');
+	var artistname=getParameterByName('artistname');
+
+	
+	function showArtist( data ) {
+ 			$('body').append(' Name: '+ data.artist['name'] + '<br />');
+			$('body').append(' Mbid code: '+ data.artist['mbid'] + '<br />');
+            $('body').append(' Link:  <a href='+ data.artist['url'] +'>'+ data.artist['url'] + '</a><br />');
+			$('body').append(' Listeners: '+ data.artist.stats['listeners'] + '  <br />');
+			$('body').append(' Played: '+ data.artist.stats['playcount'] + '  <br />');
+			$('body').append(' Summary: '+ data.artist.bio.summary + '<br />');
+			$('body').append(' <img src="'+ data.artist.image[4]["#text"] +'"><br />');
+	}
+
+Lastfm.getArtist( artistname, showArtist );
+	</script>
+</body>
+</html>

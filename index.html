@@ -38,6 +38,87 @@
           <span class="credits left">Project maintained by <a href="https://github.com/legios89">legios89</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
         </div>
+
+     <h1>4.hét</h1><br/>
+
+        <a href="lastfm.html">Last.fm keresés</a> <br/><br/>
+      
+<h3>Lastfm.js</h3>
+        <p>A feladat elkészítése során az órán is vett időjárás előrejelzés kérő programból infultam ki. A feladat elkészítéséhez regisztráltam a Last.fm -re, ahol is kaptam egy api kulcsut aminek a segítségével elérhetem az oldal tartlmát távolról is.</p>
+      <font color="green"> /*Az alábbi függvény valósítja meg az Ajax kérést amivel letöltöm a keresett kulcsszóra vonatkozó lehetséges találatokat. Ugyen iylen lekérdezés valósítja meg azt a lekérdezést amikor az előadó adatira vagyunk kivácsiak. (Lastfm.js)*/</font><br/>
+      Lastfm.getList = function(query, callback) {<br/>
+      var url;<br/>
+      url = "http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=" + query + "&api_key=560f5147f60cb7a7df83bb66eacb32f0&format=json";<br/>
+      return $.ajax({<br/>
+      <br/>
+        dataType: "jsonp",<br/>
+        context: window,<br/>
+        data: query: query,<br/>
+          format: "json" },<br/>
+        type: 'get',<br/>
+        url: url,<br/>
+        data: null,<br/>
+        success: callback,<br/>
+        crossDomain: true });<br/>
+    };<br/><br/>
+
+<h3>Lastfm.html</h3>
+<font color="green"> /*Itt a lastfm.html oldal léynegi része található.Első lépésben megadom a container-t ahova az eredméynemet helyezem, és az inputot.*/</font><br/>
+  var container = document.getElementById('container');<br/>
+  var input = $('#artist');<br/><br/>
+
+<font color="green"> /*Minden alkalommal ha új keresést inditok az előző eredméynét kitörlöm*/</font><br/>
+  function resetContainer() {<br/>
+    container.innerHTML = '';}<br/><br/>
+
+<font color="green"> /*Itt jelenítem meg a találati listát mindegyiket egy külön részbe teszem amit hozzá kapcsolok a contener-hez. Valamint a találatokból egy hibvatkozást állítok elő amire kattinva a részletes adatok jellenek meg az előadóról. */</font><br/>
+  function showArtists( data ) {  <br/>  
+        $.each(data.results.artistmatches.artist, function(key, val) {<br/>
+        var p = document.createElement('p');<br/>
+        $(p).append(artist.html?artistname='+ val.name +'>'+val.name );<br/>
+        container.appendChild(p);<br/>
+        });}<br/><br/>
+  
+  <font color="green"> /*Itt hivo meg a keresés gombra kattinva az Ajax hívást majd az eredményt visszadom a ShowArtists által*/</font><br/>
+  $('#search').click(function(ev){<br/>
+    ev.preventDefault();<br/>
+    resetContainer();<br/>
+    Lastfm.getList( input.val(), showArtists );<br/>
+  });<br/><br/>
+<h3>artist.html</h3>
+<font color="green"> /*Itt az artist.html oldal lényegi részét mutatnám be. Első lépésként az url ben átadott paramétert snyerjük vissza egy reguláris kifejezés segítségével*/</font><br/>
+function getParameterByName(name){<br/>
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");<br/>
+      var regexS = "[\\?&]" + name + "=([^&#]*)";<br/>
+      var regex = new RegExp(regexS);<br/>
+      var results = regex.exec(window.location.search);<br/>
+      if(results == null)<br/>
+        return "";<br/>
+      else<br/>
+        return decodeURIComponent(results[1].replace(/\+/g, " "));<br/>
+  }<br/>
+
+  var container = document.getElementById('container');<br/>
+  var artistname=getParameterByName('artistname');<br/><br/>
+
+  <font color="green"> /*MAjd egyzserűen az oldalon megjelenítem a kért adatokat, amiket hozzá kapcsolok a törzs részhez */</font><br/>
+  function showArtist( data ) {<br/>
+      $('body').append(' Name: '+ data.artist['name'] + '<\br />');<br/>
+      $('body').append(' Mbid code: '+ data.artist['mbid'] + '<\br />');<br/>
+      $('body').append(' Link:  <\a href='+ data.artist['url'] +'>'+ data.artist['url'] + '<\/a><\br />');<br/>
+      $('body').append(' Listeners: '+ data.artist.stats['listeners'] + '  <\br />');<br/>
+      $('body').append(' Played: '+ data.artist.stats['playcount'] + '  <\br />');<br/>
+      $('body').append(' Summary: '+ data.artist.bio.summary + '<\br />');<br/>
+      $('body').append(' <\img src="'+ data.artist.image[4]["#text"] +'"><\br />');<br/>
+  }<br/><br/>
+<font color="green"> /*Meghívom a függvéynt az oldal betöltésekor, Ekkor egy AJAX kérés segítségével lekérdezem majd a egkapott adatokat vissza is adom.*/</font><br/>
+Lastfm.getArtist( artistname, showArtist );<br/>
+
+        <br/> <br/> <br/> <br/>
+
+
+
+
         <h1>3.hét</h1><br/>
 
         <a href="fizz.html">Fizzbuzzbizz tesztelés</a> &nbsp&nbsp 
